@@ -52,7 +52,7 @@ int main() {
   cin.tie(nullptr);
   cout.tie(nullptr);
 
-  Solution sol;
+  Solution1 sol;
 
   int T;
   cin >> T;
