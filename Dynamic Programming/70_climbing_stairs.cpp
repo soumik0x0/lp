@@ -6,23 +6,19 @@ using namespace std;
 
 class Solution1 {
 public:
-  int solve(int idx, int n) {
-    if (idx > n) {
-      return 0;
-    }
+  int solve(int n) {
+    if (n < 0) return 0;
 
-    if (idx == n) {
-      return 1;
-    }
+    if (n == 0) return 1;
 
-    int take_1 = solve(idx + 1, n);
-    int take_2 = solve(idx + 2, n);
+    int one_step = solve(n - 1);
+    int two_step = solve(n - 2);
 
-    return (take_1 + take_2);
+    return one_step + two_step;
   }
 
-  int climbingStairs(int n) {
-    return solve(0, n);
+  int climbStairs(int n) {
+    return solve(n);
   }
 };
 
@@ -30,28 +26,20 @@ class Solution2 {
 public:
   int t[46];
 
-  int solve(int idx, int n) {
-    if (idx > n) {
-      return 0;
-    }
+  int solve(int n) {
+    if (n == 0 || n == 1 || n == 2) return n;
 
-    if (idx == n) {
-      return 1;
-    }
+    if (t[n] != -1) return t[n];
 
-    if (t[idx] != -1) {
-      return t[idx];
-    }
+    int one_step = solve(n - 1);
+    int two_step = solve(n - 2);
 
-    int take_1 = solve(idx + 1, n);
-    int take_2 = solve(idx + 2, n);
-
-    return t[idx] = take_1 + take_2;
+    return t[n] = one_step + two_step;
   }
 
-  int climbingStairs(int n) {
+  int climbStairs(int n) {
     memset(t, -1, sizeof(t));
-    return solve(0, n);
+    return solve(n);
   }
 };
 
@@ -70,8 +58,8 @@ int main() {
     int n;
     cin >> n;
 
-    cout << sol1.climbingStairs(n) << "\n";
-    cout << sol2.climbingStairs(n) << "\n";
+    cout << sol1.climbStairs(n) << "\n";
+    cout << sol2.climbStairs(n) << "\n";
   }
 
   return 0;
